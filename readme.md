@@ -1,59 +1,56 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+### Test Attila Barcellos Sipos Wealth99
+    Laravel version 5.6
+    PHP version 7.3
+    MySql version 5.7.33
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+    This project is an API that consumes and external API (Gecko API) that has info about cryptocurrency,
+     saves the information at database and retrives various information like unique id, price and so on.
 
-## About Laravel
+    The objective of creating this project is as a test for a senior developer role at Wealth99.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+### To execute the project
+    After cloning the repository, rename env.example to .env;
+    At command line, type:
+      docker compose up --build -d
+    
+    After all the containers are up, type, in sequence:
+      docker compose exec -it php-app bash
+      composer install
+      php artisan migrate
+    
+    If everything is ok, type inside php-app container:
+      php artisan store:all-coins
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    This should populate the database with "real data", that is going to be used for other endpoints.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+### Project flux
+    This project is meant to follow a specific flux to work as expected.
+    First, it is necessary to run the artisan command above.
+    In the production scenario, it should be scheduled to run every some minutes, to keep the
+     database data up to date. In local environment, it can be simulated running the command
+     manually.
+    An alternative is to hit the endpoint api/coins/store . The effect is the same.
 
-## Learning Laravel
+### Requisitions and responses
+    All HTTP requisitions are of type GET and all responses are in Json.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+### External Libs
+    I avoided to use unecessary external libs at development. As far as I analysed, there is no external libs worth noticing.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+### Architecture / design pattern decisions
+    Rest API architecture and repository design pattern are being used for decoupling between classes and separation of data and business logic.
 
-## Laravel Sponsors
+### Running automated tests
+    Type:
+     docker compose exec -it php-app bash
+    And:
+      vendor/bin/phpunit --verbose
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+### Important information
+    I added some user routes (creation, login and logout) as a demonstration of code style, but for
+     personal time limitations, they are not fully funtional (the routes work but I'm not using the api auth middleware).
+   
+    Automated tests were implemented and I created a separated database for tests for avoiding messing with the main
+     database. It's working as expected.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Even though I created more routes than requested at test description, the prices history endpoint was not implemented, for personal time limitations.

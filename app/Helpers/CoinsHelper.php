@@ -35,7 +35,7 @@ class CoinsHelper
         return $coinsArray;
     }
 
-    public function coinsList(): array
+    public function coinsSymbolsList(): array
     {
         return [
             'BTC',
@@ -110,7 +110,7 @@ class CoinsHelper
     private function filteredCoinsList(): array
     {
         $coinsList = $this->getCoinsList();
-        $coinsToFilter = app(CoinsHelper::class)->coinsList();
+        $coinsToFilter = $this->coinsSymbolsList();
         $lowerCase = array_map('strtolower', $coinsToFilter);
 
         return array_filter($coinsList, static function($coin) use ($lowerCase) {
