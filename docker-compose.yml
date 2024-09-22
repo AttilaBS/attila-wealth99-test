@@ -2,6 +2,7 @@ services:
   nginx:
     image: nginx:alpine
     container_name: nginx-app
+    restart: unless-stopped
     ports:
       - "8080:80"
     volumes:
@@ -27,7 +28,7 @@ services:
       - app-network
 
   mysql:
-    image: mysql:5.7
+    image: mysql:5.7.33
     restart: unless-stopped
     container_name: mysql-app
     environment:

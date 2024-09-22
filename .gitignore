@@ -14,4 +14,5 @@ yarn-error.log
 /mysql-data
 bootstrap/cache/
 storage/framework/sessions/
+storage/logs/
 .phpunit.result.cache
