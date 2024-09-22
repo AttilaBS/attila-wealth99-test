@@ -14,7 +14,7 @@ class StoreCoinsService
      * @throws GuzzleException
      * @throws JsonException
      */
-    public function __invoke(): Collection
+    public function __invoke(): bool
     {
         $coinsToStore = app(CoinsHelper::class)->parseResponse();
 

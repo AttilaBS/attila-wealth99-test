@@ -38,20 +38,19 @@ class StoreAllCoins extends Command
      */
     public function handle(): void
     {
-        $this->info('Iniciando o comando storeAllCoins');
+        $this->info('Starting storeAllCoins command');
         $getAllCoinsService = app(CoinsHelper::class);
         try {
             $coinsToPersist = $getAllCoinsService->parseResponse();
             $coinRepository = app(CoinRepositoryInterface::class);
-            $coinRepository->deleteAllCoins();
             $coinRepository->createMany($coinsToPersist);
             $coinRepository->defineCreationDateTime(['created_at' => now()]);
         } catch (GuzzleException|\JsonException $e) {
             logger()->error(
-                'Ocorreu um erro ao rodar o storeAllCoins: ',
+                'An error occurred when executing storeAllCoins: ',
                 [$e->getMessage()]
             );
         }
-        $this->info('Comando storeAllCoins finalizado');
+        $this->info('StoreAllCoins command finished');
     }
 }

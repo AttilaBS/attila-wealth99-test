@@ -36,7 +36,7 @@ Route::name('user.')->prefix('user')
 Route::name('coins')->prefix('coins')
     ->group(
         function (): void {
-            Route::post('store', 'StoreCoinsController')->name('store-coins');
+            Route::get('store', 'StoreCoinsController')->name('store-coins');
             Route::get('get-prices', 'GetCoinsPricesController')->name('get-prices');
         }
     );

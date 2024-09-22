@@ -25,9 +25,11 @@ final class CoinRepository implements CoinRepositoryInterface
      * @param $parameters array<string, string| int>
      *
      * @return bool
+     * @throws Exception
      */
     public function createMany(array $parameters): bool
     {
+        $this->deleteAllCoins();
 
         return $this->model->insert($parameters);
     }
