@@ -33,7 +33,7 @@ Route::name('user.')->prefix('user')
         }
     );
 
-Route::name('coins')->prefix('coins')
+Route::name('coins.')->prefix('coins')
     ->group(
         function (): void {
             Route::get('store', 'StoreCoinsController')->name('store-coins');

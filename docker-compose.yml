@@ -42,6 +42,23 @@ services:
     networks:
       - app-network
 
+  db-test:
+    image: mysql:5.7.33
+    restart: unless-stopped
+    container_name: mysql-test
+    environment:
+      MYSQL_DATABASE: test_database
+      MYSQL_ROOT_PASSWORD: test_password
+      MYSQL_PASSWORD: test_password
+      MYSQL_USER: test_user
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./mysql-test:/var/lib/mysql
+    ports:
+      - "3309:3306"
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
